@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from "styled-components"
 
+import { Link } from "react-router-dom";
+
 const Component = styled.div`
 
   width: 100vw;
@@ -162,76 +164,80 @@ const Text = styled.span`
 `
 
 const Projects = () => {
-    return (
-        <Component>
-            <Heading>Major Buidls</Heading>
-            <div class="container">
-                <div class="card">
-                    <div class="face face1">
-                        <div class="content">
-                            <span class="stars"></span>
-                            <h2 class="insta">Decentralized Instagram</h2>
-                            <br />
-                            <p class="insta">Andrew Tate got banned from Instagram, welp this is because of centralization, that someone can be blocked on social media. Decentralization can avoid this!</p>
-                            <br />
-                            <button class="insta">View Project</button>
-                        </div>
-                    </div>
-                    <div class="face face2">
-                        <h2>01</h2>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="face face1">
-                        <div class="content">
-                            <span class="stars"></span>
-                            <h2 class="tweet">Decentralized Twitter</h2>
-                            <br />
-                            <p class="tweet">y00t's account was suspended for no reason by Twitter, do you think it would have happened in case of Twitter being a completly decentralized organization?</p>
-                            <br />
-                            <button class="tweet">View Project</button>
-                        </div>
-                    </div>
-                    <div class="face face2">
-                        <h2>02</h2>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="face face1">
-                        <div class="content">
-                            <span class="stars"></span>
-                            <h2 class="gmail">Decentralized Gmail</h2>
-                            <br />
-                            <p class="gmail">Imagine a web3 project collecting email ids! A big hit to privacy, therefore using this project you can send emails directly to user's ethereum address.</p>
-                            <br />
-                            <button class="gmail">View Project</button>
-                        </div>
-                    </div>
-                    <div class="face face2">
-                        <h2>03</h2>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="face face1">
-                        <div class="content">
-                            <span class="stars"></span>
-                            <h2 class="connect">Web3 Connect Button</h2>
-                            <br />
-                            <p class="connect">A button which can connect to Ethereum as well as Solana chains, this is my first step towards building a chain agnostic decentralized application.</p>
-                            <br />
-                            <button class="connect">View Project</button>
-                        </div>
-                    </div>
-                    <div class="face face2">
-                        <h2>04</h2>
-                    </div>
-                </div>
+  return (
+    <Component>
+      <Heading>Major Buidls</Heading>
+      <Text>
+        These are just some of my recent ships that I love to showcase and I am proud of them,
+        if you have some crazy idea/feedback to share hit me up on Twitter at <a href='https://twitter.com/theweb3kid_' target={"_blank"} >@theweb3kid_</a>
+      </Text>
+      <div class="container">
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="insta">Decentralized Instagram</h2>
+              <br />
+              <p class="insta">Andrew Tate got banned from Instagram, welp this is because of centralization, that someone can be blocked on social media. Decentralization can avoid this!</p>
+              <br />
+              <Link to={"/dpost"} ><button class="insta">View Project</button></Link>
             </div>
-        </Component>
-    )
+          </div>
+          <div class="face face2">
+            <h2>01</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="tweet">Decentralized Twitter</h2>
+              <br />
+              <p class="tweet">y00t's account was suspended for no reason by Twitter, do you think it would have happened in case of Twitter being a completly decentralized organization?</p>
+              <br />
+              <Link to={"/dtweet"} ><button class="tweet">View Project</button></Link>
+            </div>
+          </div>
+          <div class="face face2">
+            <h2>02</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="gmail">Decentralized Gmail</h2>
+              <br />
+              <p class="gmail">Imagine a web3 project collecting email ids! A big hit to privacy, therefore using this project you can send emails directly to user's ethereum address.</p>
+              <br />
+              <Link to={"/dmail"} ><button class="gmail">View Project</button></Link>
+            </div>
+          </div>
+          <div class="face face2">
+            <h2>03</h2>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="face face1">
+            <div class="content">
+              <span class="stars"></span>
+              <h2 class="connect">Web3 Connect Button</h2>
+              <br />
+              <p class="connect">A button which can connect to Ethereum as well as Solana chains, this is my first step towards building a chain agnostic decentralized application.</p>
+              <br />
+              <a href='https://www.npmjs.com/package/web3-connect-button' target={"_blank"} ><button class="connect">View Project</button></a>
+            </div>
+          </div>
+          <div class="face face2">
+            <h2>04</h2>
+          </div>
+        </div>
+      </div>
+    </Component>
+  )
 }
 
 export default Projects
