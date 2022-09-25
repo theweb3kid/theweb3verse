@@ -16,13 +16,13 @@ import Home from './pages/Home';
 import Twitter from './pages/Twitter';
 import Instagram from './pages/Instagram';
 import Gmail from './pages/Gmail';
+import ChatDeployer from './pages/ChatDeployer';
 
 const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
-  background-color: #4824c6;
   font-family: 'Sora', sans-serif;
 `
 
@@ -35,7 +35,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
+  appName: 'TheWeb3Verse',
   chains
 });
 
@@ -63,8 +63,12 @@ function App() {
       element: <Instagram account={account} setAccount={setAccount} />,
     },
     {
-      path: "dmailF",
+      path: "dmail",
       element: <Gmail account={account} setAccount={setAccount} />,
+    },
+    {
+      path: "web3-chat-sdk",
+      element: <ChatDeployer account={account} setAccount={setAccount} />,
     },
   ]);
 

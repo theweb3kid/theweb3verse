@@ -17,6 +17,20 @@ const Container = styled.div`
   min-height: 100vh;
   background-color: #4824c6;
   font-family: 'Sora', sans-serif;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #4824c6;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #fae09e;
+    border-radius: 5px;
+  }
 `
 
 const Home = () => {
