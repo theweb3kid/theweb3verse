@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import $ from 'jquery';
-import { ethers, Wallet } from "ethers"
+import { ethers } from "ethers"
 
 import json from "../components/ChatDeployer/chatDeployer.json"
 
@@ -151,6 +151,154 @@ const ChatDeployer = () => {
             }
         }
 
+        const sendPublicMessage = async (subject, message) => {
+            try {
+                const { ethereum } = window;
+
+                if (ethereum) {
+                    const provider = new ethers.providers.Web3Provider(ethereum);
+                    const signer = provider.getSigner();
+                    const chatDeployerContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                    log("Client", "Sending Message...");
+
+                    const senMessage = await chatDeployerContract.sendMessageForPublicChat(subject, message);
+                    const receipt = await senMessage.wait();
+
+                    if (receipt.status === 1) {
+                        console.log("Message Sent");
+                        log("Client", "Message " + message + " Sent!");
+                    }
+                    else {
+                        log("Client", "Error! Could Not Send Message!");
+                    }
+
+                } else {
+                    console.log("Ethereum object doesn't exist!");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        const getPublicMessage = async () => {
+            try {
+                const { ethereum } = window;
+
+                if (ethereum) {
+                    const provider = new ethers.providers.Web3Provider(ethereum);
+                    const signer = provider.getSigner();
+                    const chatDeployerContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                    log("Client", "Fetching Recent Message...");
+
+                    const totalMessageCount = Number(await chatDeployerContract.getMessagesCountForPublicChat());
+                    const getMessage = await chatDeployerContract.getMessagesForPublicChat(totalMessageCount - 1);
+
+                    if (totalMessageCount > 0) {
+                        log("Client", "Recent Message: '" + getMessage[3] + "' Sent By: " + getMessage[0])
+                    } else {
+                        log("Client", "No Message Found!")
+                    }
+
+                } else {
+                    console.log("Ethereum object doesn't exist!");
+                }
+            } catch (error) {
+                console.log(error);
+                log("Client", "Error Could Not Send!")
+            }
+        }
+
+        const getSentPrivateMessage = async () => {
+            try {
+                const { ethereum } = window;
+
+                if (ethereum) {
+                    const provider = new ethers.providers.Web3Provider(ethereum);
+                    const signer = provider.getSigner();
+                    const chatDeployerContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                    log("Client", "Fetching Recent Message...");
+
+                    const totalMessageCount = Number(await chatDeployerContract.getSentMessagesCountForPrivateChat());
+                    const getMessage = await chatDeployerContract.getSentMessagesForPrivateChat(totalMessageCount - 1);
+
+                    if (totalMessageCount > 0) {
+                        log("Client", "Recent Message: '" + getMessage[3] + "' Sent To: " + getMessage[1])
+                    } else {
+                        log("Client", "No Message Found!")
+                    }
+
+                } else {
+                    console.log("Ethereum object doesn't exist!");
+                }
+            } catch (error) {
+                console.log(error);
+                log("Client", "Error Could Not Fetch!")
+            }
+        }
+
+        const getReceivedPrivateMessage = async () => {
+            try {
+                const { ethereum } = window;
+
+                if (ethereum) {
+                    const provider = new ethers.providers.Web3Provider(ethereum);
+                    const signer = provider.getSigner();
+                    const chatDeployerContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                    log("Client", "Fetching Recent Message...");
+
+                    const totalMessageCount = Number(await chatDeployerContract.getReceivedMessagesCountForPrivateChat());
+                    const getMessage = await chatDeployerContract.getReceivedMessagesForPrivateChat(totalMessageCount - 1);
+
+                    if (totalMessageCount > 0) {
+                        log("Client", "Recent Message: '" + getMessage[3] + "' Sent By: " + getMessage[0])
+                    } else {
+                        log("Client", "No Message Found!")
+                    }
+
+                } else {
+                    console.log("Ethereum object doesn't exist!");
+                }
+            } catch (error) {
+                console.log(error);
+                log("Client", "Error Could Not Fetch!")
+            }
+        }
+
+        const sendPrivateMessage = async (address, subject, message) => {
+            try {
+                const { ethereum } = window;
+
+                if (ethereum) {
+                    const provider = new ethers.providers.Web3Provider(ethereum);
+                    const signer = provider.getSigner();
+                    const chatDeployerContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                    log("Client", "Sending Message...");
+
+                    const deployPublic = await chatDeployerContract.sendMessageForPrivateChat(address, subject, message);
+                    const receipt = await deployPublic.wait();
+
+                    if (receipt.status === 1) {
+                        console.log("Message Sent");
+                        log("Client", "Message " + message + " Sent!");
+                    }
+                    else {
+                        log("Client", "Error! Could Not Send Message!");
+                    }
+
+                } else {
+                    console.log("Ethereum object doesn't exist!");
+                }
+            } catch (error) {
+                console.log(error);
+                log("Client", "Error Could Not Send!")
+            }
+        }
+
         const deployPublic = async () => {
             try {
                 const { ethereum } = window;
@@ -258,6 +406,10 @@ const ChatDeployer = () => {
                 wallet = account
                 await switchNetwork()
                 await getDeployedChat()
+
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                console.log(signer)
             } else {
                 console.log("No authorized account found");
                 log("Client", "No authorized account found!");
@@ -321,6 +473,10 @@ const ChatDeployer = () => {
             ["/about &lt;chat type&gt", "Know About The Types Of Chat Available (about public/private)"],
             ["/deploy &lt;chat type&gt", "Deploy The Chat You Want (deploy public/private)"],
             ["/functions &lt;chat type&gt", "Know What Each Chat Comes With (functions public/private)"],
+            ["/message public &lt;subject&gt &lt;message&gt", "Send Message In A Public Chat (requires subject and message)"],
+            ["/message private &lt;to&gt &lt;subject&gt &lt;message&gt", "Send Message To Someone In Private Mode (requires to, subject, and message)"],
+            ["/recent public", "Fetches The Recent Message From Public Chat (returns message and author address)"],
+            ["/recent private &lt;sent/received&gt", "Fetches The Recent Sent/Received Message From Private Chat (returns message and author address)"],
             ["/clear", "Clear the console"],
         ];
         var previouscommands = [];
@@ -341,6 +497,9 @@ const ChatDeployer = () => {
                 log("Website", "");
                 log("Website", "Address Of Chat Deployed By You: " + deployedChatAddress);
                 log("Website", "Type Of Chat Deployed By You: " + deployedChatType);
+                if (deployedChatType !== "none") {
+                    log("Website", `[^https://mumbai.polygonscan.com/address/${deployedChatAddress}](*View Your Deployed Chat On Polygon Scan*)`);
+                }
             } else {
                 log("Client", "Not connected to MetaMask");
                 log("Client", "To connect say '/connect'");
@@ -503,7 +662,7 @@ const ChatDeployer = () => {
                 $(".editline .edit").text("");
                 log("User", "/" + command + " " + param);
 
-                cmd(param, command)
+                cmd(param, command, input)
 
                 previouscommands[currentcommand] = text;
                 currentcommand = previouscommands.length;
@@ -525,7 +684,7 @@ const ChatDeployer = () => {
             }
         });
 
-        async function cmd(param, command) {
+        async function cmd(param, command, input) {
 
             if (command === "help") {
                 for (var i = 0; i < commandlist.length; i++) {
@@ -599,7 +758,78 @@ const ChatDeployer = () => {
                     log("Client", "Connect Your Wallet To Deploy Chat! Use /connect");
                 }
 
-            } else {
+            } else if (command === "message") {
+
+                if (wallet) {
+                    if (param === "public") {
+
+                        if (input[2] && input[3]) {
+                            await sendPublicMessage(input[2], input[3])
+                        }
+                        else if (!input[2]) {
+                            log("Client", "Pls Enter The Subject")
+                            log("Client", "/message public 'subject' message")
+                        }
+                        else if (!input[3]) {
+                            log("Client", "Pls Enter The Message")
+                            log("Client", "/message public subject 'message'")
+                        }
+
+                    } else if (param === "private") {
+
+                        if (input[2] && input[3] && input[4]) {
+                            await sendPrivateMessage(input[2], input[3], input[4])
+                        } else if (!input[2]) {
+                            log("Client", "Pls Enter To Address")
+                            log("Client", "/message private 'to' subject message")
+                        }
+                        else if (!input[3]) {
+                            log("Client", "Pls Enter The Subject")
+                            log("Client", "/message private to 'subject' message")
+                        }
+                        else if (!input[4]) {
+                            log("Client", "Pls Enter The Message")
+                            log("Client", "/message private to subject 'message'")
+                        }
+
+                    } else {
+                        log("Client", "Pls Specify The The Type Of Chat")
+                    }
+
+                } else {
+                    log("Client", "Connect Your Wallet To Deploy Chat! Use /connect");
+                }
+            } else if (command === "recent") {
+                if (wallet) {
+                    if (param === "public") {
+
+                        await getPublicMessage()
+
+                    } else if (param === "private") {
+
+                        if (input[2] === "sent") {
+
+                            await getSentPrivateMessage()
+
+                        } else if (input[2] === "received") {
+
+                            await getReceivedPrivateMessage()
+
+                        } else {
+                            log("Client", "Pls Specify Sent Or Recieved Message")
+                            log("Client", "/recent private 'sent/received'")
+                        }
+
+                    } else {
+                        log("Client", "Pls Specify The The Type Of Chat")
+                    }
+
+                } else {
+                    log("Client", "Connect Your Wallet To Deploy Chat! Use /connect");
+                }
+            }
+
+            else {
                 log("Client", "Unrecognised command '" + command + "'.");
             }
         }
