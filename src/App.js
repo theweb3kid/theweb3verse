@@ -17,6 +17,7 @@ import Twitter from './pages/Twitter';
 import Instagram from './pages/Instagram';
 import Gmail from './pages/Gmail';
 import ChatDeployer from './pages/ChatDeployer';
+import PayMe from './pages/PayMe';
 
 const Container = styled.div`
   position: absolute;
@@ -69,6 +70,10 @@ function App() {
     {
       path: "web3-chat-sdk",
       element: <ChatDeployer account={account} setAccount={setAccount} />,
+    },
+    {
+      path: "payme",
+      element: <PayMe account={account} setAccount={setAccount} />,
     },
   ]);
 

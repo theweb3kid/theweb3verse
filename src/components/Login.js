@@ -35,6 +35,7 @@ const RainbowButton = (props) => {
                                     opacity: 0,
                                     pointerEvents: 'none',
                                     userSelect: 'none',
+                                    background: 'transparent'
                                 },
                             })}
                         >
@@ -79,7 +80,7 @@ const RainbowButton = (props) => {
                                 }
 
                                 return (
-                                    <div style={{ display: 'flex', gap: 12 }} >
+                                    <div style={{ display: 'flex', gap: 12, }} >
                                         <Button colorScheme='blue' onClick={() => { openAccountModal() }} type="button">
                                             {"Connected To: "}
                                             {account.displayName}
