@@ -169,7 +169,7 @@ const Projects = () => {
       <Heading>Major Buidls</Heading>
       <Text>
         These are just some of my recent ships that I love to showcase and I am proud of them,
-        if you have some crazy idea/feedback to share hit me up on Twitter at <a href='https://twitter.com/theweb3kid_' target={"_blank"} >@theweb3kid_</a>
+        if you have some crazy idea/feedback to share hit me up on Twitter at <a href='https://twitter.com/ojasrajankar' target={"_blank"} >@ojasrajankar</a>
       </Text>
       <div class="container">
         <div class="card">

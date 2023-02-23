@@ -53,7 +53,7 @@ const Youtube = () => {
                 My new recording setup is on the way, so you can expect regular content soon.
             </Text>
             <br />
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/xrF4f5CDpog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/aiV8ketGV_0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </Component>
     )
 }

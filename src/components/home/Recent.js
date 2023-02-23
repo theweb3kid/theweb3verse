@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 
 import nftdaymeetup from "../../assets/nftdaymeetup.png"
+import zeevemeetup from "../../assets/zeevemeetup.png"
 
 const Component = styled.div`
 
@@ -38,7 +39,15 @@ const Text = styled.span`
 `
 
 const Img = styled.img`
-    width: 560px;
+    width: 48%; 
+    max-width: 560px;
+`
+
+const ImgContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 `
 
 const Recent = () => {
@@ -49,10 +58,12 @@ const Recent = () => {
                 Pleased to share that, on the occasion of International NFT Day which is on 20th Sept, I will be organizing a meetup in Nagpur,
                 brought to you by Dapper Labs, Flow Blockchain, and Opensea.
                 <br /><br />
-                <a href='https://t.co/GfcqEntEIC' target={'_blank'} >Register Here.</a>
             </Text>
             <br />
-            <Img src={nftdaymeetup} />
+            <ImgContainer>
+                <Img src={nftdaymeetup} />
+                <Img src={zeevemeetup} />
+            </ImgContainer>
         </Component>
     )
 }
